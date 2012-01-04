@@ -78,17 +78,11 @@ int WINAPI _tWinMain(
 	lpExecInfo.lpVerb = TEXT("runas");
 	//Execute, giving our parameters.
 	if (!ShellExecuteEx(&lpExecInfo)) {
-		//If the executable does not support "runas", try the default.
-		//(This happens for non-executables, or on WinXP)
-		lpExecInfo.lpVerb = NULL;
-		//Try again with the default.
-		if(!ShellExecuteEx(&lpExecInfo)) {
-			//Clean up our left-over file name
-			free(lpFile);
+		//Clean up our left-over file name
+		free(lpFile);
 
-			//If it still didn't work, give up and return an error.
-			return GetLastError();
-		}
+		//If the executable does not support "runas", give up and return error.
+		return GetLastError();
 	}
 	//If the process is running succesfully, patiently wait for it.
 	WaitForSingleObject(lpExecInfo.hProcess, INFINITE);
