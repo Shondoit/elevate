@@ -17,8 +17,7 @@ int WINAPI _tWinMain(
 	PathRemoveArgs(arg0);
 	PathUnquoteSpaces(arg0);
 	//Set lpCmdLine to only contain the arguments
-	//striparg(&lpCmdLine, (LPTSTR*)&arg0, MAX_PATH);
-	PathGetArgs(lpCmdLine);
+	lpCmdLine = PathGetArgs(lpCmdLine);
 	
 	//If the given argument is relative, search for it in the current directory
 	if (PathIsRelative(arg0)) {
